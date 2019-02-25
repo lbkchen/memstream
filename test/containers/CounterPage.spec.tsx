@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux';
@@ -9,7 +9,7 @@ import { configureStore } from '../../app/store/configureStore';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-function setup(initialState) {
+function setup(initialState?: any) {
   const store = configureStore(initialState);
   const history = createBrowserHistory();
   const provider = (
