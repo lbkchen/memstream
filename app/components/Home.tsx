@@ -1,8 +1,8 @@
-// @flow
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import routes from '../constants/routes';
-import styles from './Home.css';
+const routes = require('../constants/routes.json');
+const styles = require('./Home.css');
 
 type Props = {};
 

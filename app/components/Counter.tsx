@@ -1,15 +1,15 @@
-// @flow
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Counter.css';
-import routes from '../constants/routes';
+const routes = require('../constants/routes.json');
+const styles = require('./Counter.css');
 
 type Props = {
-  increment: () => void,
-  incrementIfOdd: () => void,
-  incrementAsync: () => void,
-  decrement: () => void,
-  counter: number
+  increment: () => void;
+  incrementIfOdd: () => void;
+  incrementAsync: () => void;
+  decrement: () => void;
+  counter: number;
 };
 
 export default class Counter extends Component<Props> {
