@@ -1,8 +1,10 @@
-import * as React from 'react';
+import React, { ReactNode } from 'react';
 
-export default class App extends React.Component {
-  render() {
-    const { children } = this.props;
-    return <React.Fragment>{children}</React.Fragment>;
-  }
+type Props = {
+  children: ReactNode;
+};
+
+export default function App(props: Props) {
+  const { children } = props;
+  return <>{children}</>;
 }

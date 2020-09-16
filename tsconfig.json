@@ -1,16 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "baseUrl": "./",
-    "rootDir": "./",
+    "target": "ES2018",
+    "module": "CommonJS",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": true,
     "jsx": "react",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "noUnusedLocals": true,
+    "strict": true,
     "pretty": true,
     "sourceMap": true,
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "lib": ["es2015", "dom"]
+    "allowJs": true
   },
-  "exclude": ["node_modules", "**/node_modules/*"]
+  "exclude": [
+    "test",
+    "release",
+    "app/main.prod.js",
+    "app/renderer.prod.js",
+    "app/dist",
+    "dll"
+  ]
 }

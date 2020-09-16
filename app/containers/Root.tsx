@@ -1,24 +1,22 @@
-import * as React from 'react';
-import { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import Routes from '../Routes';
+import { hot } from 'react-hot-loader/root';
 import { History } from 'history';
+import { Store } from '../store';
+import Routes from '../Routes';
 
 type Props = {
-  store: any;
-  history: History<any>;
+  store: Store;
+  history: History;
 };
 
-export default class Root extends Component<Props> {
-  render() {
-    const { store, history } = this.props;
-    return (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <Routes />
-        </ConnectedRouter>
-      </Provider>
-    );
-  }
-}
+const Root = ({ store, history }: Props) => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Routes />
+    </ConnectedRouter>
+  </Provider>
+);
+
+export default hot(Root);
