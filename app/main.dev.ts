@@ -16,6 +16,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
+import db from './db/db';
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -124,3 +126,10 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
 });
+
+/**
+ * Initialize database
+ */
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).db = db;
