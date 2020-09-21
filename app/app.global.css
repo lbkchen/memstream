@@ -4,17 +4,13 @@
  */
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+/* React MDE styles */
+@import '~react-mde/lib/styles/css/react-mde-all.css';
+
 body {
   position: relative;
-  color: white;
   height: 100vh;
-  background-color: #232c39;
-  background-image: linear-gradient(
-    45deg,
-    rgba(0, 216, 255, 0.5) 10%,
-    rgba(0, 1, 127, 0.7)
-  );
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, serif;
   overflow-y: hidden;
 }
 
@@ -44,4 +40,49 @@ a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Buttons */
+
+.button {
+  padding: 12px 24px;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.05);
+  transition: 100ms;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.button:hover {
+  cursor: pointer;
+  box-shadow: 0 3px 24px rgba(0, 0, 0, 0.1);
+}
+
+.button--green {
+  color: var(--white);
+  border-color: var(--light-green);
+  background-color: var(--light-green);
+}
+
+:root {
+  --white: #fff;
+  --gray-600: #838383;
+  --gray-500: #a4a4a4;
+  --gray-400: #cdcdcd;
+  --gray-300: #dfdfdf;
+  --gray-200: #eaeaea;
+  --gray-100: #f1f1f1;
+  --light-green: #61e786;
+}
+
+/* Layout */
+
+@media (min-width: 800px) {
+  .container {
+    width: 800px;
+    margin: 0 auto;
+  }
 }
