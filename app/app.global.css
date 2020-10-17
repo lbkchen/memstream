@@ -4,8 +4,14 @@
  */
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
-/* React MDE styles */
+/* React MDE styles and overrides */
 @import '~react-mde/lib/styles/css/react-mde-all.css';
+
+.mde-textarea-wrapper textarea.mde-text {
+  font-size: 24px;
+}
+
+/* Custom styles */
 
 body {
   position: relative;
