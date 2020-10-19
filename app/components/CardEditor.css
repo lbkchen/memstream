@@ -1,5 +1,5 @@
 .editor {
-  color: var(--gray-600);
+  color: var(--white);
 }
 
 .editorTitle {
@@ -11,11 +11,15 @@
 }
 
 .editorContainer {
-  margin: 24px;
+  margin: 48px 24px;
   padding: 32px;
-  border: 2px solid var(--gray-200);
   border-radius: 12px;
-  box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(
+    225deg,
+    var(--blue-gray-700),
+    var(--blue-gray-800)
+  );
+  box-shadow: 0px 3px 24px rgba(0, 0, 0, 0.1);
 }
 
 .editorLabel {

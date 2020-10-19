@@ -11,7 +11,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -27,6 +27,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+let dbWorkerWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -75,6 +76,34 @@ const createWindow = async () => {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
+
+  // Run a hidden renderer process to manage communication with the DB
+  dbWorkerWindow = new BrowserWindow({
+    show:
+      process.env.NODE_ENV === 'development' ||
+      process.env.DEBUG_PROD === 'true',
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  dbWorkerWindow.loadURL(`file://${__dirname}/db.html`);
+
+  ipcMain.on(
+    'db-request',
+    async (event: Electron.IpcMainEvent, ...args: any[]) => {
+      console.log('Main Thread: Received DB request', args);
+      dbWorkerWindow?.webContents.send('db-request', args);
+    }
+  );
+
+  ipcMain.on(
+    'db-response',
+    async (event: Electron.IpcMainEvent, ...args: any[]) => {
+      console.log('Main Thread: Sent response to window', args);
+      mainWindow?.webContents.send('db-response', args);
+    }
+  );
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event

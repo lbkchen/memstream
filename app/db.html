@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>I'm a hidden DB worker</title>
+  </head>
+  <body>
+    <!-- TODO: How to move into a separate script and not get doubly compiled by webpack -->
+    <script>
+      const PouchDB = require('pouchdb');
+      const { ipcRenderer } = require('electron');
+
+      (async () => {
+        const db = new PouchDB('dev');
+
+        if (
+          process.env.NODE_ENV === 'development' ||
+          process.env.DEBUG_PROD === 'true'
+        ) {
+          try {
+            const info = await db.info();
+            // eslint-disable-next-line no-console
+            console.log('Got DB info:', info);
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error('Failed to get DB info', err);
+          }
+        }
+
+        ipcRenderer.on('db-request', async (event, args) => {
+          console.log('DB renderer thread received request:', event, args);
+          const req = args[0];
+
+          if (req.query) {
+            try {
+              const docs = await db.allDocs({ include_docs: true });
+              console.log('DB renderer thread queried docs');
+              ipcRenderer.send('db-response', { response: docs });
+            } catch (err) {
+              console.error(err);
+            }
+          } else {
+            try {
+              // TODO: Use put instead: https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html
+              const response = await db.post(req);
+              console.log('DB renderer thread posted docs');
+              ipcRenderer.send('db-response', { response });
+            } catch (err) {
+              console.error(err);
+            }
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
