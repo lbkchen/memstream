@@ -17,7 +17,6 @@ body {
   position: relative;
   height: 100vh;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, serif;
-  overflow-y: hidden;
   background-color: var(--blue-gray-900);
 }
 
@@ -102,5 +101,6 @@ a:hover {
   .container {
     width: 800px;
     margin: 0 auto;
+    padding: 40px;
   }
 }
